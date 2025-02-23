@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.simplecoding.repositoryexam.mapper.anno.AnnoMapper">
+
+	<select id="selectAnnoList" 
+	        parameterType="Criteria" 
+	        resultType="AnnoVO">
+		SELECT * FROM ANNO
+		WHERE TITLE LIKE '%'|| #{searchKeyword} ||'%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT #{recordCountPerPage} ROWS ONLY
+	</select>	
+
+	<select id="selectAnnoListTotCnt"
+			parameterType="Criteria"
+			resultType="int"
+	>
+	    SELECT COUNT(*) FROM ANNO
+		WHERE TITLE LIKE '%' || #{searchKeyword} || '%'
+	</select>
+	
+
+	<insert id="insert" parameterType="AnnoVO">
+		INSERT INTO ANNO(
+        ANO
+        ,TITLE
+        ,CONTENT
+        ,INSERT_TIME
+		) 
+		VALUES(
+		        ANNO_SEQ.NEXTVAL
+		        , #{title} 
+		        , #{content} 
+		        ,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+	
+
+	<select id="selectAnno" 
+	        parameterType="int"
+	        resultType="AnnoVO"
+	>
+		SELECT * FROM ANNO
+		WHERE ANO = #{ano}
+	</select>
+	
+
+	<update id="update" parameterType="AnnoVO">
+		UPDATE ANNO 
+		  SET TITLE = #{title}
+		     ,CONTENT   = #{content}
+		 
+		WHERE ANO = #{ano}
+	</update>
+	
+	<delete id="delete" parameterType="AnnoVO">
+	 DELETE ANNO
+        WHERE ANO = #{ano}
+   
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+

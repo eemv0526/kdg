@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.simplecoding.repositoryexam.mapper.comment.CcMapper">
+
+<!-- 전체조회  -->
+	<select id="selectCcList" 
+	        parameterType="Criteria" 
+	        resultType="CcVO">
+		SELECT * FROM COMIC_RV
+		WHERE COMIC_COMMENT LIKE '%'|| #{searchKeyword} ||'%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT #{recordCountPerPage} ROWS ONLY
+	</select>	
+
+<!--갯수 조회  -->
+	<select id="selectCcListTotCnt"
+			parameterType="Criteria"
+			resultType="int"
+	>
+	    SELECT COUNT(*) FROM COMIC_RV
+		WHERE COMIC_COMMENT LIKE '%' || #{searchKeyword} || '%'
+	</select>
+	
+        <!-- 인서트 -->
+	<insert id="insert" parameterType="CcVO">
+		INSERT INTO COMIC_RV(
+        COMIC_ID
+        ,RATING
+        ,COMIC_COMMENT
+        ,UUID
+        ,EMAIL
+       
+		) 
+		VALUES(
+		        COMIC_SEQ.NEXTVAL
+		        , #{rating} 
+		        , #{comicComment} 
+		        , #{uuid}
+		        , #{email}
+		       
+		)
+	</insert>
+	
+
+
+<!-- 상세  -->
+	<select id="selecCc" 
+	        parameterType="int"
+	        resultType="CcVO"
+	>
+		SELECT * FROM COMIC_RV
+		WHERE UUID = #{uuid}
+	</select>
+	
+  <!-- uuid로 댓글 조회 -->
+    <select id="getCommentsByUuid" parameterType="String" resultType="CcVO">
+        SELECT *
+        FROM COMIC_RV
+        WHERE UUID = #{uuid}
+    </select>
+
+<!-- 별점 평균내기 -->
+<select id="selectAverageRating" parameterType="String" resultType="Double">
+    SELECT COALESCE(AVG(rating), 0) FROM COMIC_RV WHERE uuid = #{uuid}
+</select>
+
+
+
+	
+	<delete id="delete" parameterType="CcVO">
+	 DELETE COMIC_RV 
+	WHERE COMIC_ID = #{comicId}
+   
+	</delete>
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+

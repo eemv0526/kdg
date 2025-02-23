@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper
+	namespace="com.simplecoding.repositoryexam.mapper.list.ListMapper">
+	<select id="selectListList" parameterType="Criteria"
+		resultType="ListVO">
+		SELECT * FROM LIST
+		WHERE LIST_TITLE LIKE '%' ||
+		#{searchKeyword} || '%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT
+		#{recordCountPerPage} ROWS ONLY
+	</select>
+
+	<select id="selectListListTotCnt" parameterType="Criteria"
+		resultType="int">
+		SELECT COUNT(*) FROM LIST
+		WHERE LIST_TITLE LIKE '%'||
+		#{searchKeyword} ||'%'
+	</select>
+
+	<!-- insert SQL : public int insert(FileDbVO fileDbVO); -->
+
+	<insert id="insert" parameterType="ListVO">
+
+	  INSERT INTO LIST (UUID, LIST_TITLE, LIST_CONTENT, LIST_DATA, LIST_URL, LIST_DESCRIPTION, LIST_GENRE)
+    VALUES (#{uuid}, #{listTitle}, #{listContent}, #{listData}, #{listUrl},#{listDescription}, #{listGenre})
+
+	</insert>
+	
+<!-- 	상세조회 sql : public FileDbVO selectFileDb(String  uuid); -->
+	<select id="selectList" 
+	        parameterType="String"
+	        resultType="ListVO"
+	>
+		SELECT * FROM LIST
+		WHERE UUID = #{uuid}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	
+	DELETE LIST
+WHERE UUID = #{uuid}
+	
+	</delete>
+	
+	
+	<update id="update" parameterType="ListVO">
+      UPDATE LIST
+    SET list_title = #{listTitle},
+        list_content = #{listContent},
+        list_description = #{listDescription},
+        list_genre = #{listGenre},
+        list_url = #{listUrl},
+        list_data = #{listData}
+    WHERE uuid = #{uuid}
+</update>
+	
+	
+	
+
+	
+	
+
+</mapper>

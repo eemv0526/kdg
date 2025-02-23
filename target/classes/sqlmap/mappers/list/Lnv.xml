@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper
+	namespace="com.simplecoding.repositoryexam.mapper.list.LnvMapper">
+	<select id="selectLnvList" parameterType="Criteria"
+		resultType="LnvVO">
+		SELECT * FROM LNV
+		WHERE LNV_TITLE LIKE '%' ||
+		#{searchKeyword} || '%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT
+		#{recordCountPerPage} ROWS ONLY
+	</select>
+
+	<select id="selectLnvListTotCnt" parameterType="Criteria"
+		resultType="int">
+		SELECT COUNT(*) FROM LNV
+		WHERE LNV_TITLE LIKE '%'||
+		#{searchKeyword} ||'%'
+	</select>
+
+	<!-- insert SQL : public int insert(FileDbVO fileDbVO); -->
+
+	<insert id="insert" parameterType="LnvVO">
+
+	  INSERT INTO LNV (UUID, LNV_TITLE, LNV_CONTENT, LNV_DATA, LNV_URL, LNV_DESCRIPTION, LNV_GENRE)
+    VALUES (#{uuid}, #{lnvTitle}, #{lnvContent}, #{lnvData}, #{lnvUrl},#{lnvDescription}, #{lnvGenre})
+
+	</insert>
+	
+<!-- 	상세조회 sql : public FileDbVO selectFileDb(String  uuid); -->
+	<select id="selectLnv" 
+	        parameterType="String"
+	        resultType="LnvVO"
+	>
+		SELECT * FROM LNV
+		WHERE UUID = #{uuid}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	
+	DELETE LNV
+WHERE UUID = #{uuid}
+	
+	</delete>
+	
+	
+	<update id="update" parameterType="LnvVO">
+      UPDATE LNV
+    SET lnv_title = #{lnvTitle},
+        lnv_content = #{lnvContent},
+        lnv_description = #{lnvDescription},
+        lnv_genre = #{lnvGenre},
+        lnv_url = #{lnvUrl},
+        lnv_data = #{lnvData}
+    WHERE uuid = #{uuid}
+</update>
+	
+	
+	
+
+	
+	
+
+</mapper>

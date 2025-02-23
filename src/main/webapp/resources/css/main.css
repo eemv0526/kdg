@@ -1,0 +1,200 @@
+
+ 
+        /* 도서 리스트 스타일 */
+        :root {
+            --book-primary: #8B4513;
+            --book-secondary: #D2691E;
+            --book-background: #FFF8DC;
+        }
+        
+        .book-section {
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .card-wrapper {
+            position: relative;
+            display: flex;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            height: 150px;
+        }
+        
+        .card-img-container {
+            width: 100px;
+            min-width: 100px;
+            height: 140px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            overflow: hidden;
+        }
+        
+   
+        .rating-number {
+            font-weight: bold;
+            margin-right: 0.3rem;
+        }
+        
+        .rating-count {
+            color: #888;
+            font-size: 0.75rem;
+        }
+        
+        /* 섹션 헤더 스타일 */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .more-link {
+            font-size: 0.9rem;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .more-link:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        /* 캐러셀 스타일 */
+        .book-carousel .carousel-control-prev,
+        .book-carousel .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .book-carousel .carousel-control-prev {
+            left: -20px;
+        }
+        
+        .book-carousel .carousel-control-next {
+            right: -20px;
+        }
+        
+        .book-carousel .carousel-control-prev-icon,
+        .book-carousel .carousel-control-next-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .carousel-inner {
+            padding: 0 30px;
+        }
+        
+        /* 장르 버튼 스타일 */
+        .genre-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 0 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+      .genre-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 0 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .genre-btn.active {
+            background-color: #D2691E;
+            color: white;
+        }
+        
+        .genre-btn:hover {
+            background-color: #8B4513;
+            color: white;
+        }
+
+        .card-wrapper {
+            position: relative;
+            display: flex;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            height: 150px;
+        }
+
+        .card-wrapper.hidden {
+            display: none; /* 필터링된 카드는 숨김 */
+        }
+
+        /* 반응형 조정 */
+        @media (max-width: 1200px) {
+            .col-card {
+                width: 33.333%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .col-card {
+                width: 50%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .col-card {
+                width: 100%;
+            }
+            
+            .card-wrapper {
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+            }
+            
+            .card-img-container {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .card-content {
+                text-align: center;
+            }
+            
+         
+            
+            .book-carousel .carousel-control-prev,
+            .book-carousel .carousel-control-next {
+                display: none;
+            }
+            
+        }

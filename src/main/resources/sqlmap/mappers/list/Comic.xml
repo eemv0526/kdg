@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper
+	namespace="com.simplecoding.repositoryexam.mapper.list.ComicMapper">
+	<select id="selectComicList" parameterType="Criteria"
+		resultType="ComicVO">
+		SELECT * FROM COMIC
+		WHERE COMIC_TITLE LIKE '%' ||
+		#{searchKeyword} || '%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT
+		#{recordCountPerPage} ROWS ONLY
+	</select>
+
+	<select id="selectComicListTotCnt" parameterType="Criteria"
+		resultType="int">
+		SELECT COUNT(*) FROM COMIC
+		WHERE COMIC_TITLE LIKE '%'||
+		#{searchKeyword} ||'%'
+	</select>
+
+	<!-- insert SQL : public int insert(FileDbVO fileDbVO); -->
+
+	<insert id="insert" parameterType="LnvVO">
+
+	  INSERT INTO COMIC (UUID, COMIC_TITLE, COMIC_CONTENT, COMIC_DATA, COMIC_URL, COMIC_DESCRIPTION, COMIC_GENRE)
+    VALUES (#{uuid}, #{comicTitle}, #{comicContent}, #{comicData}, #{comicUrl},#{comicDescription}, #{comicGenre})
+
+	</insert>
+	
+<!-- 	상세조회 sql : public FileDbVO selectFileDb(String  uuid); -->
+	<select id="selectComic" 
+	        parameterType="String"
+	        resultType="ComicVO"
+	>
+		SELECT * FROM COMIC
+		WHERE UUID = #{uuid}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	
+	DELETE COMIC
+WHERE UUID = #{uuid}
+	
+	</delete>
+	
+	
+	<update id="update" parameterType="ComicVO">
+      UPDATE COMIC
+    SET comic_title = #{comicTitle},
+        comic_content = #{comicContent},
+        comic_description = #{comicDescription},
+        comic_genre = #{comicGenre},
+        comic_url = #{comicUrl},
+        comic_data = #{comicData}
+    WHERE uuid = #{uuid}
+</update>
+	
+	
+	
+
+	
+	
+
+</mapper>

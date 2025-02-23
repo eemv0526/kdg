@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+<mapper
+	namespace="com.simplecoding.repositoryexam.mapper.free.FreeMapper">
+	<select id="selectFreeList" parameterType="Criteria"
+		resultType="FreeVO">
+		SELECT * FROM FREE
+		WHERE FREE_TITLE LIKE '%' ||
+		#{searchKeyword} || '%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT
+		#{recordCountPerPage} ROWS ONLY
+	</select>
+
+	<select id="selectFreeListTotCnt" parameterType="Criteria"
+		resultType="int">
+		SELECT COUNT(*) FROM FREE
+		WHERE FREE_TITLE LIKE '%'||
+		#{searchKeyword} ||'%'
+	</select>
+
+
+
+	<insert id="insert" parameterType="FreeVO">
+
+	  INSERT INTO FREE (UUID, FREE_TITLE, FREE_CONTENT, FREE_DATA, FREE_URL, FREE_AUTHOR)
+    VALUES (#{uuid}, #{freeTitle}, #{freeContent}, #{freeData}, #{freeUrl},#{freeAuthor})
+
+	</insert>
+	
+
+	<select id="selectFree" 
+	        parameterType="String"
+	        resultType="FreeVO"
+	>
+		SELECT * FROM FREE
+		WHERE UUID = #{uuid}
+	</select>
+	
+	
+	
+		<delete id="delete" parameterType="String">
+	
+	DELETE FREE
+WHERE UUID = #{uuid}
+	
+	</delete>
+	
+	
+	<update id="update" parameterType="FreeVO">
+      UPDATE FREE
+    SET free_title = #{freeTitle},
+        free_content = #{freeContent},
+        free_url = #{freeUrl},
+        free_data = #{freeData}
+    WHERE uuid = #{uuid}
+</update>
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	</mapper>
